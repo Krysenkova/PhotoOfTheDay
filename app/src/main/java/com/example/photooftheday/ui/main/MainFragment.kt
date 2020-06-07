@@ -35,7 +35,7 @@ class MainFragment : Fragment() {
                 val serverResponseData = data.serverResponseData
                 val url = serverResponseData.url
                 if (url.isNullOrEmpty()) {
-                    //showDialog( "Error","Message from server is empty")
+                    showDialog("Error: Message from server is empty")
                 } else {
                     image_view.load(url)
                     date.text = serverResponseData.date
@@ -44,14 +44,20 @@ class MainFragment : Fragment() {
                 }
             }
             is PictureOfTheDayData.Loading -> {
-                //showViewLoading()
+                //not needed
             }
             is PictureOfTheDayData.Error -> {
-                //showDialog("Error", data.error.message)
+                showDialog("Error: " + data.error.message)
             }
         }
     }
+
+    private fun showDialog(message: String?) {
+        error.visibility = View.VISIBLE
+        error.text = message
+    }
+
     companion object {
-        fun newInstance()= MainFragment()
+        fun newInstance() = MainFragment()
     }
 }
